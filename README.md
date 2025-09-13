@@ -1,4 +1,4 @@
-ExpenseAI Team – AI-Powered Expense Tracker
+#ExpenseAI Team – AI-Powered Expense Tracker
 
 ExpenseAI Team is a modern, AI-inspired personal finance management web app built with React and Tailwind CSS. It helps users track expenses, manage budgets, and visualize spending patterns efficiently.
 
@@ -46,10 +46,10 @@ Start the development server:
 npm run dev
 
 
-Open http://localhost:3000
+#Open http://localhost:3000
  in your browser.
 
-Usage
+#Usage
 
 Set Your Budget: Enter your monthly budget in the input box and click "Set Budget".
 
