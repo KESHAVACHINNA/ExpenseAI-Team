@@ -3,12 +3,18 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { X } from "lucide-react";
 import { Expense } from "./ExpenseTracker";
 
 interface ExpenseFormProps {
-  onSubmit: (expense: Omit<Expense, 'id'>) => void;
+  onSubmit: (expense: Omit<Expense, "id">) => void;
   onClose: () => void;
 }
 
@@ -20,34 +26,32 @@ const categories = [
   "Healthcare",
   "Shopping",
   "Travel",
-  "Other"
+  "Other",
 ];
 
 const ExpenseForm = ({ onSubmit, onClose }: ExpenseFormProps) => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [category, setCategory] = useState(categories[0]); // default to first category
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!description || !amount || !category) {
-      return;
-    }
+
+    if (!description || !amount || !category) return;
 
     onSubmit({
       description,
       amount: parseFloat(amount),
       category,
-      date
+      date,
     });
 
     // Reset form
     setDescription("");
     setAmount("");
-    setCategory("");
-    setDate(new Date().toISOString().split('T')[0]);
+    setCategory(categories[0]);
+    setDate(new Date().toISOString().split("T")[0]);
   };
 
   return (
