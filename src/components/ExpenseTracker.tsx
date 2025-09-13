@@ -23,6 +23,21 @@ export interface Expense {
   category: string;
   date: string;
 }
+<div className="mb-6 flex items-center gap-4 max-w-md">
+  <input
+    type="number"
+    placeholder="Set your budget"
+    value={budget}
+    onChange={(e) => setBudget(Number(e.target.value))}
+    className="p-2 rounded-md border border-border focus:outline-none focus:ring-2 focus:ring-primary flex-1"
+  />
+  <button
+    onClick={() => localStorage.setItem("budget", JSON.stringify(budget))}
+    className="px-4 py-2 rounded-md text-white font-semibold shadow-button gradient-success"
+  >
+    Set Budget
+  </button>
+</div>
 
 const ExpenseTracker = () => {
   const [expenses, setExpenses] = useState<Expense[]>(mockExpenses);
