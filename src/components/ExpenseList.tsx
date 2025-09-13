@@ -5,6 +5,9 @@ import { Expense } from "./ExpenseTracker";
 interface ExpenseListProps {
   expenses: Expense[];
 }
+const [budget, setBudget] = useState(() => {
+  return JSON.parse(localStorage.getItem("budget") || "0");
+});
 
 const categoryColors = {
   Food: "bg-success/10 text-success border-success/20",
