@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Expense } from "./ExpenseTracker";
@@ -5,9 +6,6 @@ import { Expense } from "./ExpenseTracker";
 interface ExpenseListProps {
   expenses: Expense[];
 }
-const [budget, setBudget] = useState(() => {
-  return JSON.parse(localStorage.getItem("budget") || "0");
-});
 
 const categoryColors = {
   Food: "bg-success/10 text-success border-success/20",
@@ -21,10 +19,17 @@ const categoryColors = {
 };
 
 const ExpenseList = ({ expenses }: ExpenseListProps) => {
+  // Only define useState inside a component
+  const [budget, setBudget] = useState(() => {
+    return Number(localStorage.getItem("budget") || "0");
+  });
+
   if (expenses.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">No expenses yet. Add your first expense to get started!</p>
+        <p className="text-muted-foreground">
+          No expenses yet. Add your first expense to get started!
+        </p>
       </div>
     );
   }
@@ -32,23 +37,29 @@ const ExpenseList = ({ expenses }: ExpenseListProps) => {
   return (
     <div className="space-y-3">
       {expenses.map((expense) => (
-        <Card key={expense.id} className="p-4 shadow-sm border hover:shadow-md transition-shadow">
+        <Card
+          key={expense.id}
+          className="p-4 shadow-sm border hover:shadow-md transition-shadow"
+        >
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3">
                 <h4 className="font-medium text-foreground">{expense.description}</h4>
-                <Badge 
-                  variant="secondary" 
-                  className={categoryColors[expense.category as keyof typeof categoryColors] || categoryColors.Other}
+                <Badge
+                  variant="secondary"
+                  className={
+                    categoryColors[expense.category as keyof typeof categoryColors] ||
+                    categoryColors.Other
+                  }
                 >
                   {expense.category}
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground mt-1">
-                {new Date(expense.date).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
+                {new Date(expense.date).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
                 })}
               </p>
             </div>
@@ -56,6 +67,12 @@ const ExpenseList = ({ expenses }: ExpenseListProps) => {
               <p className="font-semibold text-lg text-foreground">
                 ${expense.amount.toFixed(2)}
               </p>
+              {/* Optional: show % of budget */}
+              {budget > 0 && (
+                <p className="text-xs text-muted-foreground">
+                  {(expense.amount / budget * 100).toFixed(1)}% of budget
+                </p>
+              )}
             </div>
           </div>
         </Card>
