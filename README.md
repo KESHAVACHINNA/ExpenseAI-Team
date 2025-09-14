@@ -24,7 +24,7 @@ Styling: Tailwind CSS
 
 Components: Custom UI components + Lucide Icons
 
-Demo
+Demo  :https://expense-ai-team.vercel.app/
 
 Check the live app here: ExpenseAI Team
 
